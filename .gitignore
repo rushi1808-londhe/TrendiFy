@@ -9,3 +9,4 @@ trendify-frontend/.env
 .vscode/
 *.iml
 .DS_Store
+.metadata/
