@@ -1,0 +1,11 @@
+trendify-backend/target/
+trendify-backend/.mvn/
+*.class
+*.jar
+trendify-frontend/node_modules/
+trendify-frontend/build/
+trendify-frontend/.env
+.idea/
+.vscode/
+*.iml
+.DS_Store

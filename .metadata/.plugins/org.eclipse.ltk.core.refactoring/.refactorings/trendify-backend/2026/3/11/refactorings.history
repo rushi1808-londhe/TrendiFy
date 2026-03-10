@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;trendify-backend&apos;&#x0A;- Original project: &apos;trendify-backend&apos;&#x0A;- Original element: &apos;com.trendify.config.JacksonConfig.java&apos;" description="Delete element" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.trendify.config{JacksonConfig.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1773138448428" subPackages="false" version="1.0"/>
+</session>
