@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { Spinner } from '../../components/Spinner';
 import Footer from '../../components/Footer';
-
+import { getImageUrl } from '../../api/api';
 
 const FALLBACK = 'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=600&q=80';
 
@@ -57,7 +57,7 @@ export default function ProductDetail() {
             {/* Images */}
             <div className="col-lg-6">
               <div style={{ borderRadius: 'var(--radius)', overflow: 'hidden', border: '1px solid var(--border)', marginBottom: '.75rem' }}>
-                <img src={imgs[activeImg]} alt={product.name}
+                <img src={getImageUrl(product.imageUrls?.[0]) || FALLBACK_IMG} alt={product.name}
                   style={{ width: '100%', height: 500, objectFit: 'cover', display: 'block' }}
                   onError={e => { e.target.src = FALLBACK; }} />
               </div>

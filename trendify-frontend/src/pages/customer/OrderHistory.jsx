@@ -3,7 +3,7 @@ import { orderAPI } from '../../api/api';
 import { useToast } from '../../context/ToastContext';
 import { Spinner } from '../../components/Spinner';
 import Footer from '../../components/Footer';
-
+import { productAPI, getImageUrl } from '../../api/api';
 
 const STATUS_BADGE = {
   PENDING:    'badge-pending',
@@ -96,7 +96,7 @@ export default function OrderHistory() {
                           {order.items?.map(item => (
                             <div key={item.id} className="d-flex gap-3 mb-3 align-items-center">
                               {item.productImage && (
-                                <img src={item.productImage} alt={item.productName}
+                                <img src={getImageUrl(item.imageUrls?.[0]) } alt={item.productName}
                                   style={{ width: 55, height: 55, objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
                               )}
                               <div style={{ flex: 1 }}>

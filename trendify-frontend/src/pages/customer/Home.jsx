@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { Spinner } from '../../components/Spinner';
 import Footer from '../../components/Footer';
+import { getImageUrl } from '../../api/api';
 
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&q=80';
 
@@ -160,7 +161,7 @@ export default function Home() {
                     onClick={() => navigate(`/product/${product.id}`)}>
                     <div className="product-card-img-wrap">
                       <img
-                        src={product.imageUrls?.[0] || FALLBACK_IMG}
+                        src={getImageUrl(product.imageUrls?.[0]) || FALLBACK_IMG}
                         alt={product.name}
                         className="product-card-img"
                         onError={e => { e.target.src = FALLBACK_IMG; }}

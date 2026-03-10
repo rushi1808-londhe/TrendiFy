@@ -3,6 +3,7 @@ import { productAPI, categoryAPI, uploadFile } from '../../api/api';
 import AdminSidebar from '../../components/AdminSidebar';
 import { Spinner, InlineSpinner } from '../../components/Spinner';
 import { useToast } from '../../context/ToastContext';
+import { getImageUrl } from '../../api/api';
 
 const EMPTY_FORM = {
   name: '', description: '', price: '', stockQuantity: 0,
@@ -154,7 +155,7 @@ export default function ProductManagement() {
                       <td>
                         <div className="d-flex align-items-center gap-3">
                           <img
-                            src={p.imageUrls?.[0] || 'https://via.placeholder.com/48'}
+                            src={getImageUrl(p.imageUrls?.[0]) || FALLBACK_IMG}
                             alt={p.name}
                             style={{ width: 44, height: 44, objectFit: 'cover', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }} />
                           <div>

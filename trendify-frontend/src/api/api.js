@@ -1,14 +1,19 @@
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
+export const getImageUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith('http')) return url; // already absolute
+  return `http://localhost:8080${url}`;   // prepend backend host
+};
 // ── Token helpers ────────────────────────────────────────────────────────────
-export const getToken  = () => localStorage.getItem('tf_token');
+export const getToken = () => localStorage.getItem('tf_token');
 export const saveToken = (token) => localStorage.setItem('tf_token', token);
 export const clearToken = () => localStorage.removeItem('tf_token');
 
-export const getUser   = () => {
+export const getUser = () => {
   try { return JSON.parse(localStorage.getItem('tf_user')); } catch { return null; }
 };
-export const saveUser  = (user) => localStorage.setItem('tf_user', JSON.stringify(user));
+export const saveUser = (user) => localStorage.setItem('tf_user', JSON.stringify(user));
 export const clearUser = () => localStorage.removeItem('tf_user');
 
 // ── Core fetch wrapper ───────────────────────────────────────────────────────
@@ -56,67 +61,67 @@ export async function uploadFile(endpoint, formData) {
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
 export const authAPI = {
-  login:    (body) => request('/auth/login',    { method: 'POST', body }),
+  login: (body) => request('/auth/login', { method: 'POST', body }),
   register: (body) => request('/auth/register', { method: 'POST', body }),
 };
 
 // ── Products ─────────────────────────────────────────────────────────────────
 export const productAPI = {
-  getAll:       (params = '') => request(`/products${params}`),
-  getById:      (id)          => request(`/products/${id}`),
-  search:       (params)      => request(`/products/search${params}`),
-  getByCategory:(id, params='') => request(`/products/category/${id}${params}`),
-  getTopSelling:(limit=8)     => request(`/products/top-selling?limit=${limit}`),
+  getAll: (params = '') => request(`/products${params}`),
+  getById: (id) => request(`/products/${id}`),
+  search: (params) => request(`/products/search${params}`),
+  getByCategory: (id, params = '') => request(`/products/category/${id}${params}`),
+  getTopSelling: (limit = 8) => request(`/products/top-selling?limit=${limit}`),
 
   // Admin
-  getAllAdmin:  (page=0,size=20) => request(`/products/admin/all?page=${page}&size=${size}`),
-  getLowStock: (threshold=5)    => request(`/products/admin/low-stock?threshold=${threshold}`),
-  create:      (body)           => request('/products', { method: 'POST', body }),
-  update:      (id, body)       => request(`/products/${id}`, { method: 'PUT', body }),
-  delete:      (id)             => request(`/products/${id}`, { method: 'DELETE' }),
-  updateStock: (id, qty)        => request(`/products/${id}/stock?quantity=${qty}`, { method: 'PATCH' }),
-  uploadWithImages: (formData)  => uploadFile('/products/with-images', formData),
+  getAllAdmin: (page = 0, size = 20) => request(`/products/admin/all?page=${page}&size=${size}`),
+  getLowStock: (threshold = 5) => request(`/products/admin/low-stock?threshold=${threshold}`),
+  create: (body) => request('/products', { method: 'POST', body }),
+  update: (id, body) => request(`/products/${id}`, { method: 'PUT', body }),
+  delete: (id) => request(`/products/${id}`, { method: 'DELETE' }),
+  updateStock: (id, qty) => request(`/products/${id}/stock?quantity=${qty}`, { method: 'PATCH' }),
+  uploadWithImages: (formData) => uploadFile('/products/with-images', formData),
 };
 
 // ── Categories ───────────────────────────────────────────────────────────────
 export const categoryAPI = {
   getActive: () => request('/categories'),
-  getAll:    () => request('/categories/all'),
-  getById:   (id) => request(`/categories/${id}`),
-  create:    (body) => request('/categories', { method: 'POST', body }),
-  update:    (id, body) => request(`/categories/${id}`, { method: 'PUT', body }),
-  delete:    (id) => request(`/categories/${id}`, { method: 'DELETE' }),
+  getAll: () => request('/categories/all'),
+  getById: (id) => request(`/categories/${id}`),
+  create: (body) => request('/categories', { method: 'POST', body }),
+  update: (id, body) => request(`/categories/${id}`, { method: 'PUT', body }),
+  delete: (id) => request(`/categories/${id}`, { method: 'DELETE' }),
 };
 
 // ── Orders ───────────────────────────────────────────────────────────────────
 export const orderAPI = {
   // Customer
-  place:     (body) => request('/orders', { method: 'POST', body }),
-  getMyOrders: ()   => request('/orders/my'),
+  place: (body) => request('/orders', { method: 'POST', body }),
+  getMyOrders: () => request('/orders/my'),
   getMyOrder: (orderNumber) => request(`/orders/my/${orderNumber}`),
-  cancel:    (id)   => request(`/orders/my/${id}/cancel`, { method: 'PATCH' }),
+  cancel: (id) => request(`/orders/my/${id}/cancel`, { method: 'PATCH' }),
 
   // Admin
-  getAll:    (page=0, size=20) => request(`/orders/admin/all?page=${page}&size=${size}`),
-  getById:   (id)              => request(`/orders/admin/${id}`),
-  updateStatus: (id, status)   => request(`/orders/admin/${id}/status`, {
+  getAll: (page = 0, size = 20) => request(`/orders/admin/all?page=${page}&size=${size}`),
+  getById: (id) => request(`/orders/admin/${id}`),
+  updateStatus: (id, status) => request(`/orders/admin/${id}/status`, {
     method: 'PATCH', body: { status },
   }),
-  getStats:  () => request('/orders/admin/stats'),
+  getStats: () => request('/orders/admin/stats'),
 };
 
 // ── Users ────────────────────────────────────────────────────────────────────
 export const userAPI = {
-  getMe:       ()     => request('/users/me'),
-  updateMe:    (body) => request('/users/me', { method: 'PUT', body }),
+  getMe: () => request('/users/me'),
+  updateMe: (body) => request('/users/me', { method: 'PUT', body }),
   changePassword: (body) => request('/users/me/password', { method: 'PATCH', body }),
   uploadAvatar: (formData) => uploadFile('/users/me/avatar', formData),
 
   // Super Admin
-  getAll:      ()     => request('/users/admin/all'),
-  getCustomers:()     => request('/users/admin/customers'),
-  getAdmins:   ()     => request('/users/admin/admins'),
+  getAll: () => request('/users/admin/all'),
+  getCustomers: () => request('/users/admin/customers'),
+  getAdmins: () => request('/users/admin/admins'),
   createAdmin: (body) => request('/users/admin/create-admin', { method: 'POST', body }),
-  toggleStatus:(id)   => request(`/users/admin/${id}/toggle-status`, { method: 'PATCH' }),
-  delete:      (id)   => request(`/users/admin/${id}`, { method: 'DELETE' }),
+  toggleStatus: (id) => request(`/users/admin/${id}/toggle-status`, { method: 'PATCH' }),
+  delete: (id) => request(`/users/admin/${id}`, { method: 'DELETE' }),
 };

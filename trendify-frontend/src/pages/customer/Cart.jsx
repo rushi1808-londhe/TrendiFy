@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import Footer from '../../components/Footer';
+import { productAPI, getImageUrl } from '../../api/api';
+
 
 const FALLBACK = 'https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=200&q=80';
 
@@ -20,7 +22,7 @@ export default function Cart() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Navbar />
+
       <main className="flex-grow-1 py-5">
         <div className="container">
           <button className="tf-back" onClick={() => navigate('/')}>
@@ -49,7 +51,7 @@ export default function Cart() {
                       style={{ padding: '1.2rem', borderBottom: idx < items.length - 1 ? '1px solid var(--mist)' : 'none' }}>
                       <div className="row g-3 align-items-center">
                         <div className="col-auto">
-                          <img src={item.imageUrls?.[0] || FALLBACK} alt={item.name}
+                          <img src={getImageUrl(item.imageUrls?.[0]) || FALLBACK_IMG} alt={item.name}
                             style={{ width: 85, height: 85, objectFit: 'cover', borderRadius: 'var(--radius-sm)' }}
                             onError={e => { e.target.src = FALLBACK; }} />
                         </div>
