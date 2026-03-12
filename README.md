@@ -64,4 +64,4 @@ npm start
 
 ---
 
-> Built with ❤️ by Rushikesh Londhe
+> Built by Rushikesh Londhe
