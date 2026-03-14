@@ -93,25 +93,6 @@ export default function Login() {
             No account?{' '}
             <Link to="/register" className="auth-link">Create one</Link>
           </p>
-
-          {/* Demo credentials */}
-          <div className="mt-4 p-3"
-            style={{ border: '1px dashed rgba(184,146,74,.25)', borderRadius: 'var(--radius)' }}>
-            <div style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '.5rem' }}>
-              Demo Credentials
-            </div>
-            {[
-              ['Super Admin', 'superadmin@trendify.com', 'SuperAdmin@123'],
-              ['Admin',       'admin@trendify.com',       'Admin@123'],
-            ].map(([role, email, pass]) => (
-              <div key={role} className="mb-1"
-                style={{ fontSize: '.75rem', color: 'rgba(250,247,242,.4)', cursor: 'pointer' }}
-                onClick={() => setForm({ email, password: pass })}>
-                <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>{role}:</span>{' '}
-                <span style={{ fontFamily: 'monospace' }}>{email}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

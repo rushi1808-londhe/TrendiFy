@@ -5,7 +5,6 @@ import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { InlineSpinner } from '../../components/Spinner';
 import Footer from '../../components/Footer';
-import { productAPI, getImageUrl } from '../../api/api';
 
 export default function Checkout() {
   const { items, totalAmount, clearCart } = useCart();
